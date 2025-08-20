@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Beehive Dashboard</title>
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Beehive Monitoring</h1>
+  <p>Temperature: <span id="temp">0</span> °C</p>
+  <p>Bee Count: <span id="bees">0</span></p>
+  <h2 id="alert" style="color:red;"></h2>
+
+  <script>
+    var socket = io();
+
+    socket.on('updateData', function(data) {
+      document.getElementById('temp').innerText = data.temperature;
+      document.getElementById('bees').innerText = data.beeCount;
+    });
+
+    socket.on('alert', function(data) {
+      document.getElementById('alert').innerText = data.message;
+    });
+  </script>
+</body>
+</html>
